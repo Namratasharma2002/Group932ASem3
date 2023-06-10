@@ -1,3 +1,5 @@
+import 'package:ez_text/repositories/registrationRepo.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,28 @@ import 'package:flutter/services.dart' show rootBundle;
 
 
 class RegistrationPage extends StatelessWidget {
+
+
+  void saveData(){
+    Map<String, dynamic> data= {
+      "name": nameController.text,
+      "phone": numberController.text,
+      "email": emailController.text,
+      "password": passwordController.text,
+ };
+ registrationRepo rr = registrationRepo();
+ rr.createProduct(data);
+  }
+  TextEditingController nameController =  TextEditingController();
+  TextEditingController numberController =  TextEditingController();
+  TextEditingController emailController =  TextEditingController();
+  TextEditingController passwordController =  TextEditingController();
+
+
+  void register(){
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +86,7 @@ class RegistrationPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   TextFormField(
+                    controller: nameController,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Rubik',
@@ -78,6 +103,7 @@ class RegistrationPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   TextFormField(
+                    controller: numberController,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Rubik',
@@ -94,6 +120,7 @@ class RegistrationPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   TextFormField(
+                    controller: emailController,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Rubik',
@@ -110,6 +137,7 @@ class RegistrationPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   TextFormField(
+                    controller: passwordController,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Rubik',
@@ -128,12 +156,16 @@ class RegistrationPage extends StatelessWidget {
                   SizedBox(height: 53),
                   ElevatedButton(
                     onPressed: () {
-                      final viewModel = context.read<RegistrationViewModel>();
-                      if (viewModel.validateFields()) {
-                        viewModel.registerUser();
-                      } else {
-                        // Show an error message or handle validation errors
-                      }
+                      // final viewModel = context.read<RegistrationViewModel>();
+                      // if (viewModel.validateFields()) {
+                      //   viewModel.registerUser();
+                      // } else {
+                      //   // Show an error message or handle validation errors
+                      // }
+                      register();
+                      saveData();
+
+
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF2086B1),
