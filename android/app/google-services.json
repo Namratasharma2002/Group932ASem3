@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "565691892767",
-    "project_id": "ez-text-1a32c",
-    "storage_bucket": "ez-text-1a32c.appspot.com"
+    "project_number": "798657438100",
+    "project_id": "eztext-4cc00",
+    "storage_bucket": "eztext-4cc00.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:565691892767:android:c648ec25588862200dc12a",
+        "mobilesdk_app_id": "1:798657438100:android:6d958f567f0e0f25b02f81",
         "android_client_info": {
           "package_name": "com.example.ez_text"
         }
       },
       "oauth_client": [
         {
-          "client_id": "565691892767-hlmbvucafj6b84j567bp2qftnkr70erc.apps.googleusercontent.com",
+          "client_id": "798657438100-708e7vut2a9r9eaf0qk6gk7674piiv6h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBXeCeL_ZPDbb-KFBTzcwlAzgNDVGuIqb8"
+          "current_key": "AIzaSyDPlIJa233mqq95dNq2a3ZQ-5rlEB8HUYo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "565691892767-hlmbvucafj6b84j567bp2qftnkr70erc.apps.googleusercontent.com",
+              "client_id": "798657438100-708e7vut2a9r9eaf0qk6gk7674piiv6h.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "565691892767-ngtrbbs2d455ids0hmletsl7pn1d5rbb.apps.googleusercontent.com",
+              "client_id": "798657438100-umfvp9ff6dmogq4rbpj62nlh9t1h6cch.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.ezText"

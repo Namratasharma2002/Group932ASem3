@@ -20,7 +20,7 @@ class _UserSelectionState extends State<UserSelection> {
   static Stream<QuerySnapshot<Map<String,dynamic>>> getMyUsersId() {
      return fireStore.
     collection('users').
-    doc('5mjT35eoffnnKiree3wh').
+    doc('YBEs5mTDOBCl2ZhVEXZQ').
     collection('my_friends').
     snapshots();
   }
