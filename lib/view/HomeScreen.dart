@@ -102,6 +102,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         controller: _tabController,
         children: [
           ListView.builder(
+            itemCount: 16,
+              physics: BouncingScrollPhysics(),
               itemBuilder:(context,index){
             return const ChatUserCard();
           }),

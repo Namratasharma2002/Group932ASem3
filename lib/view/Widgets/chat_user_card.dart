@@ -51,12 +51,24 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   ),
                   maxLines: 1,
                 ),
-                trailing: GestureDetector(
-                  onTap: toggleFavorite,
-                  child: Icon(
-                    isFavorite ? Icons.star : Icons.star_border,
-                    color: isFavorite ? Colors.yellow : Colors.white,
-                  ),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: toggleFavorite,
+                      child: Icon(
+                        isFavorite ? Icons.star : Icons.star_border,
+                        color: isFavorite ? Colors.yellow : Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 4.0),
+                    Text(
+                      "12:00 PM",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Divider(
