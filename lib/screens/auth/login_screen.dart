@@ -5,6 +5,23 @@ import 'package:provider/provider.dart';
 import '../../view_model/auth_viewmodel.dart';
 import '../../view_model/global_ui_viewmodel.dart';
 
+
+class ValidateLogin{
+  static String? emailValidate(String? value){
+    if(value==null || value.isEmpty){
+      return "Email is required";
+    }
+    return null;
+  }
+
+  static String? passwordValidate(String? value){
+    if(value==null || value.isEmpty){
+      return "Password is required";
+    }
+    return null;
+  }
+}
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -65,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    validator: ValidateLogin.emailValidate,
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress ,
                     // validator: ValidateLogin.emailValidate,
@@ -81,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
                   TextFormField(
+                    validator: ValidateLogin.passwordValidate,
                     controller: _passwordController,
                     obscureText: _obscureTextPassword,
                     // validator: ValidateLogin.password,

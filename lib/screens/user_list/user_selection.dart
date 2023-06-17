@@ -4,11 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/auth_viewmodel.dart';
 
 
 
 class UserSelection extends StatefulWidget {
+
+
   const UserSelection({Key? key}) : super(key: key);
+
 
   @override
   State<UserSelection> createState() => _UserSelectionState();
@@ -16,11 +22,25 @@ class UserSelection extends StatefulWidget {
 
 class _UserSelectionState extends State<UserSelection> {
 
-  //Getting all user id added as friends
+    late AuthViewModel _authViewModel;
+    void initState() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+      });
+      super.initState();
+    }
+
+
+
+
+
+
+
+    //Getting all user id added as friends
   static Stream<QuerySnapshot<Map<String,dynamic>>> getMyUsersId() {
      return fireStore.
     collection('users').
-    doc('YBEs5mTDOBCl2ZhVEXZQ').
+    doc("EEOUZvLfwgXRFktLB9D7").
     collection('my_friends').
     snapshots();
   }
@@ -40,7 +60,7 @@ class _UserSelectionState extends State<UserSelection> {
   static Future<bool> addChatUser(String Email) async{
     final data= await fireStore.collection('users').where('email',isEqualTo:emailController.text).get();
     if(data.docs.isNotEmpty){
-      fireStore.collection('users').doc('5mjT35eoffnnKiree3wh').
+      fireStore.collection('users').doc('EEOUZvLfwgXRFktLB9D7').
       collection('my_friends').doc(data.docs.first.id).set({});
       return true;
     }
