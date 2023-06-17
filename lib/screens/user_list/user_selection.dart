@@ -37,10 +37,10 @@ class _UserSelectionState extends State<UserSelection> {
 
 
     //Getting all user id added as friends
-  static Stream<QuerySnapshot<Map<String,dynamic>>> getMyUsersId() {
+  static Stream<QuerySnapshot<Map<String,dynamic>>> getMyUsersId(String? id) {
      return fireStore.
     collection('users').
-    doc("EEOUZvLfwgXRFktLB9D7").
+    doc(id).
     collection('my_friends').
     snapshots();
   }
@@ -57,10 +57,10 @@ class _UserSelectionState extends State<UserSelection> {
   static FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   //adding a user
-  static Future<bool> addChatUser(String Email) async{
+  static Future<bool> addChatUser(String Email, String? id) async{
     final data= await fireStore.collection('users').where('email',isEqualTo:emailController.text).get();
     if(data.docs.isNotEmpty){
-      fireStore.collection('users').doc('EEOUZvLfwgXRFktLB9D7').
+      fireStore.collection('users').doc(id).
       collection('my_friends').doc(data.docs.first.id).set({});
       return true;
     }
@@ -92,60 +92,77 @@ class _UserSelectionState extends State<UserSelection> {
 
                 // Building a Stream
 
-                child: StreamBuilder(
-                  stream: getMyUsersId(),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                      case ConnectionState.none:
-                        return const Center(child: CircularProgressIndicator());
+                child: Consumer<AuthViewModel>(
 
-                      case ConnectionState.active:
-                      case ConnectionState.done:
-                        return StreamBuilder(
-                          stream: getAllUsers(
-                            snapshot.data?.docs.map((e) => e.id).toList() ?? [],
-
-                          ),
-
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                              case ConnectionState.none:
-                                return const Center(
-                                    child: CircularProgressIndicator());
-
-                              case ConnectionState.active:
-                              case ConnectionState.done:
-                                // List<String>? data2= snapshot.data?.docs.map((e) => e.id).toList();
-
-                                if(snapshot.hasData && snapshot.data!=null){
-                                  return ListView.builder(
-                                    itemCount: snapshot.data!.docs.length,
-                                    itemBuilder: (context,index){
-                                      Map<String, dynamic> userMap= snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                  builder: (context, AuthViewModel, child)=>
 
 
-                                      return ListTile(
-                                        title: Text(userMap['name']),
-                                        subtitle: Text(userMap['email']),
 
+                    StreamBuilder(
+
+                    stream: getMyUsersId(AuthViewModel.loggedInUser?.id),
+
+                    builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return const Center(
+                                child: CircularProgressIndicator());
+
+                          case ConnectionState.active:
+                          case ConnectionState.done:
+                            return StreamBuilder(
+                              stream: getAllUsers(
+                                snapshot.data?.docs.map((e) => e.id).toList() ??
+                                    [],
+
+                              ),
+
+                              builder: (context, snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.waiting:
+                                  case ConnectionState.none:
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+
+                                  case ConnectionState.active:
+                                  case ConnectionState.done:
+                                  // List<String>? data2= snapshot.data?.docs.map((e) => e.id).toList();
+
+                                    if (snapshot.hasData &&
+                                        snapshot.data != null) {
+                                      return ListView.builder(
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (context, index) {
+                                          Map<String,
+                                              dynamic> userMap = snapshot.data!
+                                              .docs[index].data() as Map<
+                                              String,
+                                              dynamic>;
+
+
+                                          return ListTile(
+                                            title: Text(userMap['name']),
+                                            subtitle: Text(userMap['email']),
+
+                                          );
+                                        },
                                       );
-                                    },
-                                  );
+                                    }
+                                    else {
+                                      return const Center(
+                                          child: Text("NO connections Found")
+                                      );
+                                    }
                                 }
-                                else {
-                                  return const Center(
-                                      child: Text("NO connections Found")
-                                  );
-                                }
-                            }
-                            // List<String>? data2 = snapshot.data?.docs.map((e)=>e.id).toList();
+                                // List<String>? data2 = snapshot.data?.docs.map((e)=>e.id).toList();
 
-                          },
-                        );
+                              },
+                            );
+                        }
+
                     }
-                  }
+                  ),
                 )
               ),
               Container(
@@ -175,24 +192,28 @@ class _UserSelectionState extends State<UserSelection> {
                       SizedBox(
                         width: 20,
                       ),
-                      IconButton(
 
-                          iconSize: 50,
-                          color: Colors.white,
 
-                          onPressed: () async{
-                            if(emailController.text.isNotEmpty) {
-                              await addChatUser(emailController.text).then((value){
-                                if(!value){
-                                  final snackBar= SnackBar(content: Text("Enter a valid email"));
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Consumer<AuthViewModel>(
+                        builder: (context, AuthViewModel, child)=>
+                        IconButton(
+                            iconSize: 50,
+                            color: Colors.white,
+
+                            onPressed: () async{
+                              if(emailController.text.isNotEmpty) {
+                                await addChatUser(emailController.text, _authViewModel.loggedInUser?.id).then((value){
+                                  if(!value){
+                                    final snackBar= SnackBar(content: Text("Enter a valid email"));
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  }
                                 }
+                                );
                               }
-                              );
-                            }
-                      },
+                        },
 
-                          icon:Icon(Icons.add_circle) ),
+                            icon:Icon(Icons.add_circle) ),
+                      ),
                     ],
                   ),
                 ),
