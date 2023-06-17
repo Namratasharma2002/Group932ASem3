@@ -1,4 +1,7 @@
+import 'package:ez_text/model/user_model.dart';
 import 'package:ez_text/repositories/registrationRepo.dart';
+import 'package:ez_text/view/HomeScreen.dart';
+import 'package:ez_text/view/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +15,13 @@ class RegistrationPage extends StatelessWidget {
 
 
   void saveData(){
-    Map<String, dynamic> data= {
-      "name": nameController.text,
-      "phone": numberController.text,
-      "email": emailController.text,
-      "password": passwordController.text,
- };
+    final data= UserModel(
+      username: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+    );
  registrationRepo rr = registrationRepo();
- rr.createProduct(data);
+ rr.addInfo(data);
   }
   TextEditingController nameController =  TextEditingController();
   TextEditingController numberController =  TextEditingController();
@@ -156,14 +158,10 @@ class RegistrationPage extends StatelessWidget {
                   SizedBox(height: 53),
                   ElevatedButton(
                     onPressed: () {
-                      // final viewModel = context.read<RegistrationViewModel>();
-                      // if (viewModel.validateFields()) {
-                      //   viewModel.registerUser();
-                      // } else {
-                      //   // Show an error message or handle validation errors
-                      // }
+
                       register();
                       saveData();
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Login()));
 
 
                     },
@@ -213,7 +211,7 @@ class RegistrationPage extends StatelessWidget {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                // Handle sign in link tapped
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Login()));
                               },
                           ),
                         ],

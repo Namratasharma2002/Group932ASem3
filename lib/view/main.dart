@@ -1,9 +1,14 @@
+import 'package:ez_text/view/FirstPage.dart';
+import 'package:ez_text/view/Login.dart';
 import 'package:ez_text/view/registration_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ez_text/firebase_options.dart';
 import '../view_model/registration_viewmodel.dart';
+import 'HomeScreen.dart';
+
 
 // void main() {
 //   runApp(const MyApp());
@@ -11,6 +16,8 @@ import '../view_model/registration_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -44,7 +51,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home:RegistrationPage(),
+      home:Login(),
     );
   }
 }
