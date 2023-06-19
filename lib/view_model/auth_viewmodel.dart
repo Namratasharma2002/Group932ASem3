@@ -13,6 +13,9 @@ class AuthViewModel with ChangeNotifier{
   UserModel? _loggedInUser;
   UserModel? get loggedInUser=>_loggedInUser;
 
+  List<UserModel> _friendsList= [];
+  List<UserModel> get friendsList=> _friendsList;
+
 
 
   Future<void> register(UserModel user) async {
@@ -32,11 +35,48 @@ class AuthViewModel with ChangeNotifier{
       var response= await AuthRepository().login(email, password);
       _user = response.user;
       _loggedInUser = await AuthRepository().getUserDetail(_user!.uid);
+      print(_loggedInUser?.myFriends);
+
+      await getFriendsDetail(_loggedInUser!.myFriends!);
+
       notifyListeners();
     } catch(err){
       // AuthRepository().logout();
       rethrow;
     }
   }
+
+
+  Future<void> addUser(UserModel model, String id, String email)  async{
+
+    try{
+
+      _loggedInUser= await AuthRepository().addUser(model, id, email);
+
+      getFriendsDetail(loggedInUser!.myFriends!);
+      notifyListeners();
+
+
+    } catch(err){
+      rethrow;
+    }
+
+  }
+
+
+  Future<void> getFriendsDetail(List<String> ids) async{
+    print(ids);
+    _friendsList= [];
+    for(int i=0; i< ids.length;i++){
+      var a= await AuthRepository().getUserDetailWithId(ids[i]);
+      if(a!=null){
+        _friendsList?.add(a);
+        print(_friendsList);
+      }
+
+    }
+    notifyListeners();
+  }
+
 
 }

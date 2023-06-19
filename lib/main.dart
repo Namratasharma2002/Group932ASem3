@@ -4,6 +4,7 @@ import 'package:ez_text/screens/auth/register_screen.dart';
 import 'package:ez_text/screens/user_list/user_selection.dart';
 import 'package:ez_text/view_model/auth_viewmodel.dart';
 import 'package:ez_text/view_model/global_ui_viewmodel.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider (create: (_) => GlobalUIViewModel()),
         ChangeNotifierProvider (create: (_) => AuthViewModel()),
-
       ],
 
     child: MaterialApp(

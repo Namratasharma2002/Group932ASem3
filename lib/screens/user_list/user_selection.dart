@@ -1,9 +1,8 @@
 import 'dart:developer';
 
+import 'package:ez_text/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/auth_viewmodel.dart';
@@ -22,56 +21,29 @@ class UserSelection extends StatefulWidget {
 
 class _UserSelectionState extends State<UserSelection> {
 
+
     late AuthViewModel _authViewModel;
+
     void initState() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
       });
       super.initState();
+
     }
-
-
-
-
-
-
-
-    //Getting all user id added as friends
-  static Stream<QuerySnapshot<Map<String,dynamic>>> getMyUsersId(String? id) {
-     return fireStore.
-    collection('users').
-    doc(id).
-    collection('my_friends').
-    snapshots();
-  }
-
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(List<String> userIds){
-    log("user id : $userIds");
-    return fireStore.collection("users").where('id', whereIn: userIds).snapshots();
-  }
-
-
 
   static TextEditingController emailController= TextEditingController();
-  //ADDING A USER FUNCTION
-  static FirebaseFirestore fireStore = FirebaseFirestore.instance;
-
-  //adding a user
-  static Future<bool> addChatUser(String Email, String? id) async{
-    final data= await fireStore.collection('users').where('email',isEqualTo:emailController.text).get();
-    if(data.docs.isNotEmpty){
-      fireStore.collection('users').doc(id).
-      collection('my_friends').doc(data.docs.first.id).set({});
-      return true;
-    }
-    return false;
-  }
 
 
-//Testing user registration
-  void testCreation() async{
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: "NewDummy@gmail.com", password: "Hello123!");
-  }
+    Future<void> addChatUser(UserModel? model, String? id, String email) async {
+   await _authViewModel.addUser(model!, id!, email);
+}
+
+// Future<void> showUserDetail(List<String> ids)async {
+//   _authViewModel.getFriendsDetail(ids);
+// }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,79 +62,25 @@ class _UserSelectionState extends State<UserSelection> {
                 height: MediaQuery.of(context).size.height - 200,
                 width: double.infinity,
 
-                // Building a Stream
-
                 child: Consumer<AuthViewModel>(
 
-                  builder: (context, AuthViewModel, child)=>
+                  builder: (context, _authViewModel, child)=>
 
 
-
-                    StreamBuilder(
-
-                    stream: getMyUsersId(AuthViewModel.loggedInUser?.id),
-
-                    builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                          case ConnectionState.none:
-                            return const Center(
-                                child: CircularProgressIndicator());
-
-                          case ConnectionState.active:
-                          case ConnectionState.done:
-                            return StreamBuilder(
-                              stream: getAllUsers(
-                                snapshot.data?.docs.map((e) => e.id).toList() ??
-                                    [],
-
-                              ),
-
-                              builder: (context, snapshot) {
-                                switch (snapshot.connectionState) {
-                                  case ConnectionState.waiting:
-                                  case ConnectionState.none:
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-
-                                  case ConnectionState.active:
-                                  case ConnectionState.done:
-                                  // List<String>? data2= snapshot.data?.docs.map((e) => e.id).toList();
-
-                                    if (snapshot.hasData &&
-                                        snapshot.data != null) {
-                                      return ListView.builder(
-                                        itemCount: snapshot.data!.docs.length,
-                                        itemBuilder: (context, index) {
-                                          Map<String,
-                                              dynamic> userMap = snapshot.data!
-                                              .docs[index].data() as Map<
-                                              String,
-                                              dynamic>;
+                  ListView.builder(
 
 
-                                          return ListTile(
-                                            title: Text(userMap['name']),
-                                            subtitle: Text(userMap['email']),
+                    itemCount: _authViewModel.loggedInUser?.myFriends?.length,
 
-                                          );
-                                        },
-                                      );
-                                    }
-                                    else {
-                                      return const Center(
-                                          child: Text("NO connections Found")
-                                      );
-                                    }
-                                }
-                                // List<String>? data2 = snapshot.data?.docs.map((e)=>e.id).toList();
+                    itemBuilder: (context,index){
 
-                              },
-                            );
-                        }
 
-                    }
-                  ),
+                      return ListTile(
+
+                        title: Text((_authViewModel!.friendsList![index])!.email!),
+                      );
+                    },
+                  )
                 )
               ),
               Container(
@@ -202,13 +120,13 @@ class _UserSelectionState extends State<UserSelection> {
 
                             onPressed: () async{
                               if(emailController.text.isNotEmpty) {
-                                await addChatUser(emailController.text, _authViewModel.loggedInUser?.id).then((value){
-                                  if(!value){
-                                    final snackBar= SnackBar(content: Text("Enter a valid email"));
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  }
-                                }
-                                );
+                                await addChatUser(AuthViewModel.loggedInUser, AuthViewModel.loggedInUser!.id, emailController.text );
+
+                              }
+                              else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(
+                                        "Please enter a valid email")));
                               }
                         },
 

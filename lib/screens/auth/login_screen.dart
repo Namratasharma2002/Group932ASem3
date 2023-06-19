@@ -33,8 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _obscureTextPassword= true;
 
-  TextEditingController _emailController= TextEditingController();
-  TextEditingController _passwordController= TextEditingController();
+  TextEditingController _emailController= TextEditingController(
+    text: "prashantbasel@gmail.com"
+  );
+  TextEditingController _passwordController= TextEditingController(
+    text: "123456"
+  );
 
 
   final _formKey= GlobalKey<FormState>();

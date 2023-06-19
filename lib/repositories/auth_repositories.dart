@@ -22,6 +22,7 @@ class AuthRepository{
     try {
       final response = await userRef
           .where("name", isEqualTo: user.name!).get();
+      print("RESPONSE ${response}");
       UserCredential uc = await FirebaseService.firebaseAuth
           .createUserWithEmailAndPassword(
           email: user.email!, password: user.password!);
@@ -64,6 +65,47 @@ class AuthRepository{
       rethrow;
     }
   }
+
+  Future<UserModel> getUserDetailWithEmail(String email) async{
+    try{
+      final response = await userRef.where("email", isEqualTo: email).get();
+      var user = response.docs.single.data();
+      return user;
+    } catch(err){
+      rethrow;
+    }
+  }
+
+  Future<UserModel> getUserDetailWithId(String id) async{
+    try{
+      final response = await userRef.where("id", isEqualTo: id).get();
+      var user = response.docs.single.data();
+      print(user);
+      return user;
+    } catch(err){
+      rethrow;
+    }
+  }
+
+
+  Future<UserModel?> addUser(UserModel model, String id, String email) async{
+    try{
+      final response = await userRef.where("email", isEqualTo: email).get();
+
+      userRef.doc(id).update({
+        "myFriends": FieldValue.arrayUnion([response.docs.first.id]),
+      });
+
+      model.myFriends?.add(response.docs.first.id);
+
+      return model;
+
+    }catch(err){
+      rethrow;
+
+    }
+  }
+
 
 
 
