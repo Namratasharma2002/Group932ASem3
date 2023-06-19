@@ -16,7 +16,7 @@ class RegistrationPage extends StatelessWidget {
 
   void saveData(){
     final data= UserModel(
-      username: nameController.text,
+      name: nameController.text,
       email: emailController.text,
       password: passwordController.text,
     );

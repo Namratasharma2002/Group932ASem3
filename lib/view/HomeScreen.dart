@@ -1,6 +1,12 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_text/service/APIs.dart';
 import 'package:ez_text/view/Widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../model/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key});
@@ -11,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController? _tabController;
+  List<UserModel> list = [];
 
   @override
   void initState() {
@@ -27,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Color(0xFF4F91FB),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(110),
         child: AppBar(
@@ -101,19 +108,34 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: TabBarView(
         controller: _tabController,
         children: [
-          ListView.builder(
-            itemCount: 16,
-              physics: BouncingScrollPhysics(),
-              itemBuilder:(context,index){
-            return const ChatUserCard();
-          }),
-          Container(
-            color: Colors.blueAccent,
-            child: Center(
-              child: Text('Chats'),
-            ),
+          StreamBuilder<QuerySnapshot>(
+            stream: APIs.firestore.collection("users").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final data = snapshot.data?.docs;
+              list = data?.map((e) => UserModel.fromJson(e.data()! as Map<String, dynamic>)).toList() ?? [];
+
+              if (list.isNotEmpty) {
+                return ListView.builder(
+                  itemCount: list.length,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return ChatUserCard(user: list[index]);
+                  },
+                );
+              }else{
+                return Center(
+                  child: Text("No Users Found",
+                  style:TextStyle(fontSize: 40))
+                );
+              }
+
+              return Container(); // Return an empty container if the list is empty
+            },
           ),
-          // Status content
           Container(
             color: Colors.blueAccent,
             child: Center(

@@ -1,5 +1,6 @@
 import 'package:ez_text/view/FirstPage.dart';
 import 'package:ez_text/view/Login.dart';
+import 'package:ez_text/view/Widgets/UploadImage.dart';
 import 'package:ez_text/view/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home:FirstPage(),
+      home:HomeScreen(),
     );
   }
 }

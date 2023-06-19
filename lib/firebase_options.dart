@@ -44,39 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBVLiJ0ysUQ05qpCQ8annHVDsf2w6QerP4',
-    appId: '1:49681467263:web:e5c366a3942ae13fd0fc4a',
-    messagingSenderId: '49681467263',
-    projectId: 'group932-a',
-    authDomain: 'group932-a.firebaseapp.com',
-    storageBucket: 'group932-a.appspot.com',
+    apiKey: 'AIzaSyDPlIJa233mqq95dNq2a3ZQ-5rlEB8HUYo',
+    appId: '1:798657438100:web:7e39048781aebc8cb02f81',
+    messagingSenderId: '798657438100',
+    projectId: 'eztext-4cc00',
+    authDomain: 'eztext-4cc00.firebaseapp.com',
+    storageBucket: 'eztext-4cc00.appspot.com',
+    measurementId: 'G-J436XEPNP0',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8usX4IVz69Ep2XDLqEXzX5J19qRW-viQ',
-    appId: '1:49681467263:android:7f3c861ae76b566fd0fc4a',
-    messagingSenderId: '49681467263',
-    projectId: 'group932-a',
-    storageBucket: 'group932-a.appspot.com',
+    apiKey: 'AIzaSyDPlIJa233mqq95dNq2a3ZQ-5rlEB8HUYo',
+    appId: '1:798657438100:android:6d958f567f0e0f25b02f81',
+    messagingSenderId: '798657438100',
+    projectId: 'eztext-4cc00',
+    storageBucket: 'eztext-4cc00.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBpazIRzVgjt2xM5caE5CNfhM4Pi32e6cA',
-    appId: '1:49681467263:ios:da4b5b41af396d15d0fc4a',
-    messagingSenderId: '49681467263',
-    projectId: 'group932-a',
-    storageBucket: 'group932-a.appspot.com',
-    iosClientId: '49681467263-6te338as2nh60qolihnnglmm0m180c23.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAk2qqOqwzPjp9AOIo6o5nUUDqZhp1gDgw',
+    appId: '1:798657438100:ios:3067e6fddf137d25b02f81',
+    messagingSenderId: '798657438100',
+    projectId: 'eztext-4cc00',
+    storageBucket: 'eztext-4cc00.appspot.com',
+    iosClientId: '798657438100-umfvp9ff6dmogq4rbpj62nlh9t1h6cch.apps.googleusercontent.com',
     iosBundleId: 'com.example.ezText',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBpazIRzVgjt2xM5caE5CNfhM4Pi32e6cA',
-    appId: '1:49681467263:ios:da4b5b41af396d15d0fc4a',
-    messagingSenderId: '49681467263',
-    projectId: 'group932-a',
-    storageBucket: 'group932-a.appspot.com',
-    iosClientId: '49681467263-6te338as2nh60qolihnnglmm0m180c23.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAk2qqOqwzPjp9AOIo6o5nUUDqZhp1gDgw',
+    appId: '1:798657438100:ios:3067e6fddf137d25b02f81',
+    messagingSenderId: '798657438100',
+    projectId: 'eztext-4cc00',
+    storageBucket: 'eztext-4cc00.appspot.com',
+    iosClientId: '798657438100-umfvp9ff6dmogq4rbpj62nlh9t1h6cch.apps.googleusercontent.com',
     iosBundleId: 'com.example.ezText',
   );
 }

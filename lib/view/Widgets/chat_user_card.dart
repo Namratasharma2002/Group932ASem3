@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/user_model.dart';
+
 class ChatUserCard extends StatefulWidget {
-  const ChatUserCard({Key? key}) : super(key: key);
+  final UserModel user;
+  const ChatUserCard({Key? key, required this.user}) : super(key: key);
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -38,12 +41,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   ),
                 ),
                 title: Text(
-                  "Demo User",
+                  widget.user?.name ?? '',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
                 subtitle: Text(
                   "The Last Message",
                   style: TextStyle(
