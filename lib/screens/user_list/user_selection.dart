@@ -77,7 +77,8 @@ class _UserSelectionState extends State<UserSelection> {
 
                       return ListTile(
 
-                        title: Text((_authViewModel!.friendsList![index])!.email!),
+                        title: Text((_authViewModel!.friendsList![index])!.name!),
+                        subtitle: Text((_authViewModel!.friendsList![index])!.email!),
                       );
                     },
                   )
