@@ -191,7 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       minimumSize: Size(double.infinity, 50),
                     ),
 
-                    child: Text("click me"),
+                    child: Text("Register"),
                   ),
                   SizedBox(height: 16),
                   Container(
@@ -214,6 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
+                              Navigator.of(context).pushNamed("/login");
                                 // Handle sign in link tapped
                               },
                           ),

@@ -4,7 +4,7 @@ import 'package:ez_text/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../view_model/auth_viewmodel.dart';
 
 
@@ -39,9 +39,9 @@ class _UserSelectionState extends State<UserSelection> {
    await _authViewModel.addUser(model!, id!, email);
 }
 
-// Future<void> showUserDetail(List<String> ids)async {
-//   _authViewModel.getFriendsDetail(ids);
-// }
+    void _onDismissed(){
+
+    }
 
 
 
@@ -73,13 +73,48 @@ class _UserSelectionState extends State<UserSelection> {
                     itemCount: _authViewModel.loggedInUser?.myFriends?.length,
 
                     itemBuilder: (context,index){
+                      return Slidable(
+                        endActionPane: ActionPane(
+                          motion: const StretchMotion(),
+                          children: [
+                            SlidableAction(
+                                onPressed: (context)=> _onDismissed(),
+                              backgroundColor: Colors.red,
+                              // icon: Icons.share,
+                              label: 'Remove',
+                            ),
+                            SlidableAction(
+                              onPressed: (context)=> _onDismissed(),
+                              backgroundColor: Colors.yellow,
+                              // icon: Icons.remove,
+                              label: 'Block',
+                            )
+                          ],
+                        ),
+                        child: Padding(
 
+                          padding: EdgeInsets.only(left: 10,right:10,top: 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0xff1976D2)
+                                ),
+                              ),
+                            ),
+                            child: ListTile(
 
-                      return ListTile(
-
-                        title: Text((_authViewModel!.friendsList![index])!.name!),
-                        subtitle: Text((_authViewModel!.friendsList![index])!.email!),
+                              title: Text((_authViewModel!.friendsList![index])!.name!),
+                                subtitle: Text((_authViewModel!.friendsList![index])!.email!),
+                            ),
+                          ),
+                        ),
                       );
+                      // return ListTile(
+                      //
+                      //   title: Text((_authViewModel!.friendsList![index])!.name!),
+                      //   subtitle: Text((_authViewModel!.friendsList![index])!.email!),
+                      // );
                     },
                   )
                 )
