@@ -1,3 +1,4 @@
+import 'package:ez_text/view/ChatScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
       elevation: 0, // No shadow for the card
       color: Colors.transparent, // Make the card background transparent
       child: InkWell(
-        onTap: () {},
+        onTap: ( ) {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen()));
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Column(

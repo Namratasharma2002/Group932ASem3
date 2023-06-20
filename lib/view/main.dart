@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ez_text/firebase_options.dart';
 import '../view_model/registration_viewmodel.dart';
+import 'ChatScreen.dart';
 import 'HomeScreen.dart';
 
 
