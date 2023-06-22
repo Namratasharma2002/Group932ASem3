@@ -1,36 +1,82 @@
+import 'package:ez_text/view/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:loader_overlay/loader_overlay.dart';
+
+import 'package:provider/provider.dart';
+
+import '../view_model/auth_viewmodel.dart';
+import '../view_model/global_ui_viewmodel.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // options: FirebaseOptions(
+    //   apiKey: "AIzaSyDZopgwT3FXAHhsTs2c78yk-dw92lnnEK8",
+    //   appId: "1:350617005648:web:64921c07aa521069b4ab55",
+    //   messagingSenderId: "350617005648",
+    //   projectId: "my-app-name-3d643",
+    // ),
+  );
+ 
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demiio',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider (create: (_) => GlobalUIViewModel()),
+        ChangeNotifierProvider (create: (_) => AuthViewModel()),
+        // ChangeNotifierProvider (create: (_) => CategoryViewModel()),
+        // ChangeNotifierProvider (create: (_) => ProductViewModel()),
+      ],
+      child: GlobalLoaderOverlay(
+        useDefaultLoading: false,
+        overlayWidget: Center(
+          child: Image.asset("assets/images/loader.gif", height: 100, width: 100,),
+        ),
+        child: Consumer<GlobalUIViewModel>(
+          builder: (context, loader, child) {
+            if(loader.isLoading){
+              context.loaderOverlay.show();
+            }else{
+              context.loaderOverlay.hide();
+            }
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                // This is the theme of your application.
+                //
+                // Try running your application with "flutter run". You'll see the
+                // application has a blue toolbar. Then, without quitting the app, try
+                // changing the primarySwatch below to Colors.green and then invoke
+                // "hot reload" (press "r" in the console where you ran "flutter run",
+                // or simply save your changes to "hot reload" in a Flutter IDE).
+                // Notice that the counter didn't reset back to zero; the application
+                // is not restarted.
+                primarySwatch: Colors.blue,
+              ),
+              initialRoute: "/login",
+              routes: {
+                "/login": (BuildContext context)=>LoginScreen(),
+               
+               },
+            );
+          }
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -100,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
