@@ -106,6 +106,18 @@ class AuthRepository{
     }
   }
 
+  Future<bool> changePassword(String password, String id) async {
+    try {
+      var res = await FirebaseService.firebaseAuth.currentUser?.updatePassword(password);
+      userRef.doc(id).update({
+       "password": password,
+      });
+      return true;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
 
 
 

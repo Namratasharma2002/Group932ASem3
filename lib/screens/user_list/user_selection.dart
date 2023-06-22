@@ -138,8 +138,10 @@ class _UserSelectionState extends State<UserSelection> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder(),
-                            hintText: "Enter email",
+                            border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(50)
+                            ),
+                            hintText: " Enter email",
                           ),
                         ),
                       ),
