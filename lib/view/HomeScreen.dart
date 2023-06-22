@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    APIs.getSelfInfo();
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         controller: _tabController,
         children: [
           StreamBuilder<QuerySnapshot>(
-            stream: APIs.firestore.collection("users").snapshots(),
+            stream: APIs.getAllUsers(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

@@ -1,3 +1,4 @@
+import 'package:ez_text/service/NotificationService.dart';
 import 'package:ez_text/view/FirstPage.dart';
 import 'package:ez_text/view/Login.dart';
 import 'package:ez_text/view/Widgets/UploadImage.dart';
@@ -23,9 +24,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  NotificationService.initialize();
   runApp(
     ChangeNotifierProvider(
       create: (context) => RegistrationViewModel(),
+
       child: MyApp(),
     ),
   );

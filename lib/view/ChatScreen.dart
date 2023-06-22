@@ -1,7 +1,12 @@
+
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../service/APIs.dart';
 import 'main.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -28,14 +33,16 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                // stream: APIs.firestore.collection("users").snapshots(),
+                stream: APIs.getAllMessages(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      // return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     case ConnectionState.active:
                     case ConnectionState.done:
+                    // final data=snapshot.data?.docs;
+                    // log('Data: ${jsonEncode(data![0].data())}');
                       final list = [];
 
                       if (list.isNotEmpty) {
