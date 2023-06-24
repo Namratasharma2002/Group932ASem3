@@ -14,19 +14,38 @@ class _EditProfileState extends State<EditProfile> {
 
   late GlobalUIViewModel _ui;
   late AuthViewModel _authViewModel;
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _bioController= TextEditingController();
 
   void initState(){
+
     _ui= Provider.of<GlobalUIViewModel>(context, listen: false);
     _authViewModel= Provider.of<AuthViewModel>(context, listen: false);
+    _passwordController.text=_authViewModel!.loggedInUser!.password!;
+    _nameController.text=_authViewModel!.loggedInUser!.name!;
+    _emailController.text=_authViewModel!.loggedInUser!.email!;
+    _bioController.text= _authViewModel!.loggedInUser!.about!;
     super.initState();
   }
 
 
-  void changePassword(String password, String id){
-    _authViewModel.changePassword(password, id);
+  void changePassword(String password, String id) async{
+    try {
+      if (password == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Please Fill Password")));
+      }
+      else {
+        await _authViewModel.changePassword(password, id);
+      }
+    } catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Password too short, please enter a longer password")));
+    }
   }
 
-  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +79,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
 
               TextFormField(
-                // controller:
+                controller: _bioController,
                 decoration: InputDecoration(
                     hintText: "Type Bio...",
                     filled: true,
@@ -79,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
 
               TextFormField(
-                controller: _passwordController,
+                controller: _nameController,
                 decoration: InputDecoration(
                   labelText: 'Name',
                   filled: true,
@@ -95,7 +114,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
 
               TextFormField(
-                controller: _passwordController,
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   filled: true,
@@ -111,6 +130,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
 
               TextFormField(
+
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -144,7 +164,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                         child: Text(
-                          "Change password",
+                          "Update Profile",
                           style: TextStyle(
                               fontSize: 18
                           ),

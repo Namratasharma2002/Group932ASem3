@@ -36,7 +36,13 @@ class _UserSelectionState extends State<UserSelection> {
 
 
     Future<void> addChatUser(UserModel? model, String? id, String email) async {
-   await _authViewModel.addUser(model!, id!, email);
+      try{
+
+        await _authViewModel.addUser(model!, id!, email);
+      }catch(e){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("A user with this Email does not exist")));
+
+      }
 }
 
     void _onDismissed(){
@@ -63,15 +69,9 @@ class _UserSelectionState extends State<UserSelection> {
                 width: double.infinity,
 
                 child: Consumer<AuthViewModel>(
-
-                  builder: (context, _authViewModel, child)=>
-
-
+                  builder: (context, authViewModel, child)=>
                   ListView.builder(
-
-
-                    itemCount: _authViewModel.loggedInUser?.myFriends?.length,
-
+                    itemCount: authViewModel.loggedInUser?.myFriends?.length ?? 0,
                     itemBuilder: (context,index){
                       return Slidable(
                         endActionPane: ActionPane(
@@ -103,9 +103,8 @@ class _UserSelectionState extends State<UserSelection> {
                               ),
                             ),
                             child: ListTile(
-
-                              title: Text((_authViewModel!.friendsList![index])!.name!),
-                                subtitle: Text((_authViewModel!.friendsList![index])!.email!),
+                              title: Text((authViewModel.friendsList[index]).name.toString()),
+                                subtitle: Text((authViewModel.friendsList[index]).email.toString()),
                             ),
                           ),
                         ),
@@ -158,8 +157,7 @@ class _UserSelectionState extends State<UserSelection> {
 
                             onPressed: () async{
                               if(emailController.text.isNotEmpty) {
-                                await addChatUser(AuthViewModel.loggedInUser, AuthViewModel.loggedInUser!.id, emailController.text );
-
+                                await addChatUser(AuthViewModel.loggedInUser, AuthViewModel.loggedInUser?.id, emailController.text );
                               }
                               else {
                                 ScaffoldMessenger.of(context).showSnackBar(
