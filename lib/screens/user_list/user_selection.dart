@@ -57,6 +57,14 @@ class _UserSelectionState extends State<UserSelection> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Select User"),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).pushReplacementNamed('/editprofile');
+          },
+              icon: Icon(Icons.person),
+          )
+        ],
       ),
       body: SafeArea(
 
@@ -103,17 +111,16 @@ class _UserSelectionState extends State<UserSelection> {
                               ),
                             ),
                             child: ListTile(
+                              onTap: (){
+                                Navigator.pushNamed(context, '/chatscreen',arguments: index);
+
+                              },
                               title: Text((authViewModel.friendsList[index]).name.toString()),
                                 subtitle: Text((authViewModel.friendsList[index]).email.toString()),
                             ),
                           ),
                         ),
                       );
-                      // return ListTile(
-                      //
-                      //   title: Text((_authViewModel!.friendsList![index])!.name!),
-                      //   subtitle: Text((_authViewModel!.friendsList![index])!.email!),
-                      // );
                     },
                   )
                 )
