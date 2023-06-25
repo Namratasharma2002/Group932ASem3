@@ -80,9 +80,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Login'),
+        // ),
         body: Stack(
           children: [
             Container(

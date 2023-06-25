@@ -60,7 +60,7 @@ class _UserSelectionState extends State<UserSelection> {
         actions: [
           IconButton(
             onPressed: (){
-              Navigator.of(context).pushReplacementNamed('/editprofile');
+              Navigator.of(context).pushNamed('/editprofile');
           },
               icon: Icon(Icons.person),
           )
@@ -112,11 +112,17 @@ class _UserSelectionState extends State<UserSelection> {
                             ),
                             child: ListTile(
                               onTap: (){
-                                Navigator.pushNamed(context, '/chatscreen',arguments: index);
+                                Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
 
                               },
-                              title: Text((authViewModel.friendsList[index]).name.toString()),
-                                subtitle: Text((authViewModel.friendsList[index]).email.toString()),
+                              title: Text(
+                                  (authViewModel.friendsList[index]).name.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                                subtitle: Text(
+                                    (authViewModel.friendsList[index]).email.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
                             ),
                           ),
                         ),
