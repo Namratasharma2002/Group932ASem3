@@ -3,7 +3,6 @@ import 'package:ez_text/models/message_model.dart';
 
 import '../services/firebase_service.dart';
 
-enum Type {text, image, audio, file}
 
 class MessageRepository{
 
@@ -22,16 +21,6 @@ class MessageRepository{
   Future<void> sendMessage(String message, String Idfrom, String Idto ) async{
     try{
       final time= DateTime.now().millisecondsSinceEpoch.toString();
-      // await messageRef.add(
-      //   MessageModel(
-      //     fromId: Idfrom,
-      //     msg: message,
-      //     read: "false",
-      //     sent: time,
-      //     toId: Idto,
-      //     type: "Text Message",
-      //   )
-      // );
 
       await messageRef.doc(time).set(
           MessageModel(
@@ -53,8 +42,11 @@ class MessageRepository{
 
 
 
-  Stream<QuerySnapshot<MessageModel>> showAllMessages(){
-    return messageRef.snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> showAllMessages(){
+
+    return FirebaseService.db.collection("messages").snapshots();
+
+
   }
 
 

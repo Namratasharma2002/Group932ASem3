@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+
 import 'package:ez_text/models/user_model.dart';
 import 'package:ez_text/view_model/auth_viewmodel.dart';
 import 'package:ez_text/view_model/message_viewmodel.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/message_model.dart';
 
 
 class ChatScreen extends StatefulWidget {
@@ -69,45 +72,50 @@ class _ChatScreenState extends State<ChatScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-              color: Color(0xff4e91fb),
-          height: MediaQuery.of(context).size.height-170 ,
-          width: double.infinity,
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 170,
+                child: Consumer<MessageViewModel>(
+                  builder: (context, _messageViewModel, child) =>
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _messageViewModel.messages,
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                        case ConnectionState.none:
+                          return const Center(child: CircularProgressIndicator());
+                        case ConnectionState.active:
+                        case ConnectionState.done:
+                          print("wassup");
+                        final data=snapshot.data?.docs;
+
+
+
+
+
+                        final list= ["hello","jello","sup"];
+
+
+                          if (list.isNotEmpty) {
+                            return ListView.builder(
+                              itemCount: list.length,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Text("Message: ${list[index]}");
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                "Say Hiii 👋",
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            );
+                          }
+                      }
+                    },
+                  ),
+                ),
               ),
-              // Expanded(
-                // child: StreamBuilder<QuerySnapshot>(
-                //   stream: APIs.getAllMessages(),
-                //   builder: (context, snapshot) {
-                //     switch (snapshot.connectionState) {
-                //       case ConnectionState.waiting:
-                //       case ConnectionState.none:
-                //         return const Center(child: CircularProgressIndicator());
-                //       case ConnectionState.active:
-                //       case ConnectionState.done:
-                //       // final data=snapshot.data?.docs;
-                //       // log('Data: ${jsonEncode(data![0].data())}');
-                //         final list = [];
-                //
-                //         if (list.isNotEmpty) {
-                //           return ListView.builder(
-                //             itemCount: list.length,
-                //             physics: BouncingScrollPhysics(),
-                //             itemBuilder: (context, index) {
-                //               return Text("Message: ${list[index]}");
-                //             },
-                //           );
-                //         } else {
-                //           return Center(
-                //             child: Text(
-                //               "Say Hiii 👋",
-                //               style: TextStyle(fontSize: 30),
-                //             ),
-                //           );
-                //         }
-                //     }
-                //   },
-                // ),
-              // ),
               _chatInput(),
             ],
           ),

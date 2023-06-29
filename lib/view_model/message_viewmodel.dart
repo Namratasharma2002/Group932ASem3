@@ -6,8 +6,10 @@ import '../models/message_model.dart';
 
 class MessageViewModel with ChangeNotifier{
 
-  Stream<QuerySnapshot<MessageModel>>? _messages;
-  Stream<QuerySnapshot<MessageModel>>? get messages=> _messages;
+  Stream<QuerySnapshot<Map<String, dynamic>>>? _messages;
+  Stream<QuerySnapshot<Map<String, dynamic>>>? get messages=> _messages;
+
+
 
   Future<void> sendMessaege(String msg, String fromId, String toId) async{
     try{

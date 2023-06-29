@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
 import '../repositories/auth_repositories.dart';
+import 'message_viewmodel.dart';
 
 class AuthViewModel with ChangeNotifier{
 
@@ -38,6 +39,7 @@ class AuthViewModel with ChangeNotifier{
       print(_loggedInUser?.myFriends);
 
       await getFriendsDetail(_loggedInUser!.myFriends!);
+      // await MessageViewModel().showMessage();
 
       notifyListeners();
     } catch(err){
@@ -84,7 +86,6 @@ class AuthViewModel with ChangeNotifier{
     try {
       await AuthRepository().changePassword(password, id);
       _loggedInUser?.password = password;
-      print("wassup");
       print(_loggedInUser?.password);
       notifyListeners();
     } catch (err) {
