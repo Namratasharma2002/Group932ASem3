@@ -44,6 +44,14 @@ class _UserSelectionState extends State<UserSelection> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Select User"),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).pushNamed('/editprofile');
+          },
+              icon: Icon(Icons.person),
+          )
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -90,8 +98,23 @@ class _UserSelectionState extends State<UserSelection> {
                               ),
                             ),
                             child: ListTile(
+<<<<<<< HEAD
                               title: Text(friend.name ?? ''),
                               subtitle: Text(friend.email ?? ''),
+=======
+                              onTap: (){
+                                Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
+
+                              },
+                              title: Text(
+                                  (authViewModel.friendsList[index]).name.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                                subtitle: Text(
+                                    (authViewModel.friendsList[index]).email.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+>>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
                             ),
                           ),
                         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
 import '../repositories/auth_repositories.dart';
+import 'message_viewmodel.dart';
 
 class AuthViewModel with ChangeNotifier {
   User? _user = FirebaseService.firebaseAuth.currentUser;
@@ -35,6 +36,7 @@ class AuthViewModel with ChangeNotifier {
       print(_loggedInUser?.myFriends);
 
       await getFriendsDetail(_loggedInUser!.myFriends!);
+      // await MessageViewModel().showMessage();
 
       notifyListeners();
     } catch (err) {
@@ -45,9 +47,15 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> addUser(UserModel model, String id, String email) async {
     try {
+<<<<<<< HEAD
       _loggedInUser = await AuthRepository().addUser(model, id, email);
 
       await getFriendsDetail(loggedInUser!.myFriends!);
+=======
+      await AuthRepository().changePassword(password, id);
+      _loggedInUser?.password = password;
+      print(_loggedInUser?.password);
+>>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
       notifyListeners();
     } catch (err) {
       rethrow;
