@@ -92,15 +92,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
                         print(data?.first.runtimeType);
 
-                        // UserModel(
-                        //   email: _emailController.text,
-                        //   name: _nameController.text,
-                        //   password: _passwordController.text,
-                        //
-                        //   );
-
-
-
 
                         final list= ["hello","jello","sup"];
 
@@ -110,8 +101,16 @@ class _ChatScreenState extends State<ChatScreen> {
                               itemCount: data?.length,
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                // return MessageCard(message: test);
-                                return Text("Message: ${data?[index]["msg"]}");
+                               
+                                return MessageCard(message:  MessageModel(
+                                  fromId: data?[index]["fromID"],
+                                  msg: data?[index]["msg"],
+                                  read: data?[index]["read"],
+                                  sent: data?[index]["sent"],
+                                  toId: data?[index]["toID"],
+                                  type: data?[index]["type"],
+
+                                ));
                               },
                             );
                           } else {
