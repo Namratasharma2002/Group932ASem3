@@ -1,8 +1,6 @@
 
-import 'package:ez_text/screens/account/edit_profile_screen.dart';
 import 'package:ez_text/screens/auth/login_screen.dart';
 import 'package:ez_text/screens/auth/register_screen.dart';
-import 'package:ez_text/screens/home/home_screen.dart';
 import 'package:ez_text/screens/user_list/user_selection.dart';
 import 'package:ez_text/view_model/auth_viewmodel.dart';
 import 'package:ez_text/view_model/global_ui_viewmodel.dart';
@@ -49,8 +47,7 @@ class MyApp extends StatelessWidget {
         "/register": (BuildContext context) => RegisterScreen(),
         "/userselect": (BuildContext context) => UserSelection(),
         "/login": (BuildContext context) => LoginScreen(),
-        "/home": (BuildContext context) => HomeScreen(),
-        "/editprofile": (BuildContext context) => EditProfile(),
+
       },
     )
     );
