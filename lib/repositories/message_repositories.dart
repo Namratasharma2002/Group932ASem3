@@ -42,9 +42,9 @@ class MessageRepository{
 
 
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> showAllMessages(){
+  Stream<QuerySnapshot<Map<String, dynamic>>> showAllMessages(String? fromId, String? toId){
 
-    return FirebaseService.db.collection("messages").snapshots();
+    return FirebaseService.db.collection("messages").where("fromID", isEqualTo: fromId).where("toID", isEqualTo: toId).snapshots();
 
 
   }

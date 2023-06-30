@@ -13,7 +13,9 @@ class MessageCard extends StatefulWidget {
 class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
+
     return Container();
+
   }
 
   Widget _blueMessage(){

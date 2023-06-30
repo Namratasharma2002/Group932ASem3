@@ -11,7 +11,7 @@ class MessageViewModel with ChangeNotifier{
 
 
 
-  Future<void> sendMessaege(String msg, String fromId, String toId) async{
+  Future<void> sendMessage(String msg, String fromId, String toId) async{
     try{
       await MessageRepository().sendMessage(msg, fromId, toId);
 
@@ -21,10 +21,10 @@ class MessageViewModel with ChangeNotifier{
   }
 
 
-  Future<void> showMessage()async {
+  Future<void> showMessage(String? fromId, String? toId)async {
     try{
 
-      _messages = await MessageRepository().showAllMessages();
+      _messages = await MessageRepository().showAllMessages(fromId, toId);
       notifyListeners();
 
     }catch(e){

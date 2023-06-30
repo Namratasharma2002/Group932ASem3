@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../view_model/auth_viewmodel.dart';
+import '../../view_model/message_viewmodel.dart';
 
 
 
@@ -20,13 +21,13 @@ class UserSelection extends StatefulWidget {
 }
 
 class _UserSelectionState extends State<UserSelection> {
-
-
+    late MessageViewModel _messageViewModel;
     late AuthViewModel _authViewModel;
 
     void initState() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+        _messageViewModel= Provider.of<MessageViewModel>(context, listen: false);
       });
       super.initState();
 
@@ -112,6 +113,7 @@ class _UserSelectionState extends State<UserSelection> {
                             ),
                             child: ListTile(
                               onTap: (){
+                                _messageViewModel.showMessage( authViewModel!.loggedInUser!.id, authViewModel!.friendsList[index].id );
                                 Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
 
                               },
