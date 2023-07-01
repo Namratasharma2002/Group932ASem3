@@ -39,7 +39,7 @@ class _MessageCardState extends State<MessageCard> {
           }
 
           else{
-            return _blankMessage();
+            return SizedBox(height: 0);
           }
 
 
