@@ -113,7 +113,9 @@ class _UserSelectionState extends State<UserSelection> {
                             ),
                             child: ListTile(
                               onTap: (){
-                                _messageViewModel.showMessage( authViewModel!.loggedInUser!.id, authViewModel!.friendsList[index].id );
+                                _messageViewModel.showMessages( authViewModel!.loggedInUser!.id, authViewModel!.friendsList[index].id );
+
+
                                 Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
 
                               },

@@ -63,6 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xffc6c2c2),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
@@ -72,6 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
         body:
         receiverUserModel == null ? CircularProgressIndicator() :
         SingleChildScrollView(
+
           child: Column(
             children: [
               SizedBox(
@@ -101,8 +103,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               itemCount: data?.length,
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
-                               
-                                return MessageCard(message:  MessageModel(
+
+                                return MessageCard(receiverUser: receiverUserModel, message:  MessageModel(
                                   fromId: data?[index]["fromID"],
                                   msg: data?[index]["msg"],
                                   read: data?[index]["read"],

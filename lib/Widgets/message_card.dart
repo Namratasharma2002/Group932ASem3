@@ -3,10 +3,14 @@ import 'package:ez_text/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MessageCard extends StatefulWidget {
-  const MessageCard({Key? key, required this.message}) : super(key: key);
+import '../models/user_model.dart';
 
+class MessageCard extends StatefulWidget {
+  const MessageCard({Key? key, required this.receiverUser, required this.message}) : super(key: key);
+
+  final UserModel? receiverUser;
   final MessageModel message;
+
 
   @override
   State<MessageCard> createState() => _MessageCardState();
@@ -18,6 +22,7 @@ class _MessageCardState extends State<MessageCard> {
 
   void initState(){
     _authViewModel= Provider.of<AuthViewModel>(context, listen: false);
+
     super.initState();
   }
 
@@ -28,38 +33,118 @@ class _MessageCardState extends State<MessageCard> {
   Widget build(BuildContext context) {
 
     return Consumer<AuthViewModel>(
-        builder: (context, _authViewModel, child)=>
-        _authViewModel.loggedInUser!.id == widget.message.fromId ? _greenMessage(): _blueMessage());
+        builder: (context, _authViewModel, child){
+          if(widget.receiverUser!.id == widget.message.toId || widget.receiverUser!.id== widget.message.fromId ){
+            return _authViewModel.loggedInUser!.id == widget.message.fromId ? _whiteMessage(): _blueMessage();
+          }
 
-  }
+          else{
+            return _blankMessage();
+          }
 
-  Widget _greenMessage(){
-    return Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.symmetric(horizontal: 10),
 
-          decoration: BoxDecoration(color: Colors.blue,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-              topRight: Radius.circular(30),
-          )),
-          child: Text(widget.message.msg as String,
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black26
-          )),
-        ),
-      ],
+    }
+
     );
+
 
   }
 
   Widget _blueMessage(){
-    return Container(
-      child: Text("hey"),
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+
+              decoration: BoxDecoration(color: Colors.blue,
+              border: Border.all(color: Color(0xff2977f6)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                  topRight: Radius.circular(30),
+              )),
+              child: Text(widget.message.msg as String,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white
+              )),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(right: 30),
+          ),
+        ],
+      ),
+    );
+
+  }
+
+  Widget _whiteMessage(){
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+              padding: EdgeInsets.only(right: 30),
+              ),
+
+
+          Flexible(
+            child: Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+
+              decoration: BoxDecoration(color: Colors.white,
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+              child: Text(widget.message.msg as String,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black
+                  )),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _blankMessage(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(0),
+        ),
+
+
+        Flexible(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.symmetric(horizontal: 10),
+
+            decoration: BoxDecoration(color: Colors.white,
+                border: Border.all(color: Colors.white),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  bottomLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                )),
+            child: Text(""),
+          ),
+        ),
+      ],
     );
   }
 }
