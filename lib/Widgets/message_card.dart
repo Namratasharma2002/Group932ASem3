@@ -35,7 +35,13 @@ class _MessageCardState extends State<MessageCard> {
     return Consumer<AuthViewModel>(
         builder: (context, _authViewModel, child){
           if(widget.receiverUser!.id == widget.message.toId || widget.receiverUser!.id== widget.message.fromId ){
-            return _authViewModel.loggedInUser!.id == widget.message.fromId ? _whiteMessage(): _blueMessage();
+            if(widget.message.fromId== _authViewModel.loggedInUser!.id || widget.message.fromId==widget.receiverUser!.id){
+              return _authViewModel.loggedInUser!.id == widget.message.fromId ? _whiteMessage(): _blueMessage();
+            }
+            else{
+              return SizedBox(height: 0);
+            }
+
           }
 
           else{
@@ -52,7 +58,7 @@ class _MessageCardState extends State<MessageCard> {
 
   Widget _blueMessage(){
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -117,34 +123,6 @@ class _MessageCardState extends State<MessageCard> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _blankMessage(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: EdgeInsets.all(0),
-        ),
-
-
-        Flexible(
-          child: Container(
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.symmetric(horizontal: 10),
-
-            decoration: BoxDecoration(color: Colors.white,
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                )),
-            child: Text(""),
-          ),
-        ),
-      ],
     );
   }
 }
