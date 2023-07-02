@@ -115,4 +115,6 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  changePassword(password, String id) {}
 }

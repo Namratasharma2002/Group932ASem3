@@ -30,9 +30,9 @@ class _UserSelectionState extends State<UserSelection> {
     await _authViewModel.addUser(model!, id!, email);
   }
 
-  Future<void> removeFriend(String friendId) async {
-    await _authViewModel.removeFriend(friendId);
-  }
+  // Future<void> removeFriend(String friendId) async {
+  //   await _authViewModel.removeFriend(friendId);
+  // }
 
   void _onDismissed() {
     // TODO: Implement onDismissed logic if needed
@@ -67,6 +67,7 @@ class _UserSelectionState extends State<UserSelection> {
                     itemBuilder: (context, index) {
                       final friend = _authViewModel.friendsList[index];
                       print("FRIENDS" +friend.toString());
+                      var authViewModel;
                       return Slidable(
                         endActionPane: ActionPane(
                           motion: const StretchMotion(),
@@ -74,7 +75,7 @@ class _UserSelectionState extends State<UserSelection> {
                             SlidableAction(
                               onPressed: (context) {
                                 if (friend != null) {
-                                  removeFriend(friend.id.toString()); // Use 'id' instead of friend[id]
+                                  // removeFriend(friend.id.toString()); // Use 'id' instead of friend[id]
                                 }
                               },
                               backgroundColor: Colors.red,
@@ -98,23 +99,23 @@ class _UserSelectionState extends State<UserSelection> {
                               ),
                             ),
                             child: ListTile(
-<<<<<<< HEAD
+
                               title: Text(friend.name ?? ''),
                               subtitle: Text(friend.email ?? ''),
-=======
+
                               onTap: (){
                                 Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
 
                               },
-                              title: Text(
-                                  (authViewModel.friendsList[index]).name.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                                subtitle: Text(
-                                    (authViewModel.friendsList[index]).email.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                ),
->>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
+                              // title: Text(
+                              //     (authViewModel.friendsList[index]).name.toString(),
+                              //   style: TextStyle(color: Colors.white),
+                              // ),
+                                // subtitle: Text(
+                                //     (authViewModel.friendsList[index]).email.toString(),
+                                //   style: TextStyle(color: Colors.white),
+                                // ),
+
                             ),
                           ),
                         ),

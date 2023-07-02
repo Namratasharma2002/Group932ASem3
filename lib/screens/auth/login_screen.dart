@@ -60,12 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
     try{
       await _authViewModel.login(_emailController.text, _passwordController.text)
           .then((value){
-<<<<<<< HEAD
+
         Navigator.of(context).pushReplacementNamed('/userselect');
-=======
         _messageViewModel.showMessage();
         Navigator.of(context).pushNamed('/userselect');
->>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
+
       }).catchError((e){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       });
