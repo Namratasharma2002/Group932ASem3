@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureTextPassword= true;
 
   TextEditingController _emailController= TextEditingController(
-    text: "prashantbasel@gmail.com"
+    text: "test@gmail.com"
   );
   TextEditingController _passwordController= TextEditingController(
     text: "123456"
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((value){
 
         Navigator.of(context).pushReplacementNamed('/userselect');
-        _messageViewModel.showMessage();
+
 
       }).catchError((e){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
