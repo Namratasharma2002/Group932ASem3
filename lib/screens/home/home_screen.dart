@@ -6,7 +6,7 @@ import 'package:ez_text/services/firebase_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../Widgets/ChatUserCard.dart';
+import '../../Widgets/chatuser_card.dart';
 import '../../models/user_model.dart';
 
 
