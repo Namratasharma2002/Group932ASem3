@@ -83,8 +83,7 @@ class AuthRepository {
     }
   }
 
-  Future<UserModel?> addUser(
-      UserModel model, String id, String email) async {
+  Future<UserModel?> addUser(UserModel model, String id, String email) async {
     try {
       final response = await userRef.where("email", isEqualTo: email).get();
 
@@ -99,6 +98,21 @@ class AuthRepository {
       rethrow;
     }
   }
+
+
+  Future<bool> changePassword(String password, String id) async {
+    try {
+      var res = await FirebaseService.firebaseAuth.currentUser?.updatePassword(password);
+      userRef.doc(id).update({
+        "password": password,
+      });
+      return true;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+
 
   Future<void> removeFriend(String loggedIn, String friendId) async {
     try {

@@ -1,4 +1,5 @@
 
+import 'package:ez_text/screens/account/edit_profile_screen.dart';
 import 'package:ez_text/screens/auth/login_screen.dart';
 import 'package:ez_text/screens/auth/register_screen.dart';
 import 'package:ez_text/screens/chat/chat_screen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         "/userselect": (BuildContext context) => UserSelection(),
         "/login": (BuildContext context) => LoginScreen(),
         "/chatscreen": (BuildContext context) => ChatScreen(),
+        "/editprofile": (BuildContext context) => EditProfile(),
 
       },
     )

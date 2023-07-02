@@ -81,4 +81,18 @@ class AuthViewModel with ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+  Future<void> changePassword(String password, String id) async {
+    try {
+      await AuthRepository().changePassword(password, id);
+      _loggedInUser?.password = password;
+      print(_loggedInUser?.password);
+      notifyListeners();
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+
 }
