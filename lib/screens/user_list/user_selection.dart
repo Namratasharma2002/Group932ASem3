@@ -68,7 +68,7 @@ class _UserSelectionState extends State<UserSelection> {
         ],
       ),
       body: SafeArea(
-
+//to make the pane scrollable
         child: SingleChildScrollView(
           child: Column(
             children: [
