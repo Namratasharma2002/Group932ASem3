@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+
               child: IconButton(
                 onPressed: () {
                   // Handle menu icon press
@@ -90,8 +91,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   color: Colors.black,
                 ),
               ),
+
             ),
+
           ],
+
           bottom: TabBar(
             controller: _tabController,
             labelColor: Colors.black,

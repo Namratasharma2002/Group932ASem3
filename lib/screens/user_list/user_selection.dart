@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../view_model/auth_viewmodel.dart';
+import '../../view_model/message_viewmodel.dart';
 
 class UserSelection extends StatefulWidget {
   const UserSelection({Key? key}) : super(key: key);
@@ -15,20 +16,34 @@ class UserSelection extends StatefulWidget {
 }
 
 class _UserSelectionState extends State<UserSelection> {
-  late AuthViewModel _authViewModel;
 
-  void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-    });
-    super.initState();
-  }
+    late MessageViewModel _messageViewModel;
+    late AuthViewModel _authViewModel;
 
-  static TextEditingController emailController = TextEditingController();
+    void initState() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+        _messageViewModel= Provider.of<MessageViewModel>(context, listen: false);
+      });
+      super.initState();
 
-  Future<void> addChatUser(UserModel? model, String? id, String email) async {
-    await _authViewModel.addUser(model!, id!, email);
-  }
+    }
+
+  static TextEditingController emailController= TextEditingController();
+
+
+    Future<void> addChatUser(UserModel? model, String? id, String email) async {
+      try{
+
+        await _authViewModel.addUser(model!, id!, email);
+      }catch(e){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("A user with this Email does not exist")));
+
+      }
+}
+
+  
+ 
 
   Future<void> removeFriend(String friendId) async {
     await _authViewModel.removeFriend(friendId);
@@ -54,6 +69,7 @@ class _UserSelectionState extends State<UserSelection> {
         ],
       ),
       body: SafeArea(
+
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -98,11 +114,11 @@ class _UserSelectionState extends State<UserSelection> {
                               ),
                             ),
                             child: ListTile(
-<<<<<<< HEAD
-                              title: Text(friend.name ?? ''),
-                              subtitle: Text(friend.email ?? ''),
-=======
+
                               onTap: (){
+                                _messageViewModel.showMessages( authViewModel!.loggedInUser!.id, authViewModel!.friendsList[index].id );
+
+
                                 Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
 
                               },
@@ -114,7 +130,6 @@ class _UserSelectionState extends State<UserSelection> {
                                     (authViewModel.friendsList[index]).email.toString(),
                                   style: TextStyle(color: Colors.white),
                                 ),
->>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
                             ),
                           ),
                         ),

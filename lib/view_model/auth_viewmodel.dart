@@ -47,15 +47,9 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> addUser(UserModel model, String id, String email) async {
     try {
-<<<<<<< HEAD
       _loggedInUser = await AuthRepository().addUser(model, id, email);
 
       await getFriendsDetail(loggedInUser!.myFriends!);
-=======
-      await AuthRepository().changePassword(password, id);
-      _loggedInUser?.password = password;
-      print(_loggedInUser?.password);
->>>>>>> 8a2bbe1188f0eaf6721327c23e65903aae1ae9da
       notifyListeners();
     } catch (err) {
       rethrow;
@@ -64,7 +58,8 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> removeFriend(String friendId) async {
     try {
-      await AuthRepository().removeFriend(loggedInUser!.id.toString(), friendId);
+      await AuthRepository()
+          .removeFriend(loggedInUser!.id.toString(), friendId);
       _loggedInUser = await AuthRepository().getUserDetail(_user!.uid);
       notifyListeners();
       await getFriendsDetail(loggedInUser!.myFriends!);
