@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/user_model.dart';
+import '../view_model/message_viewmodel.dart';
 
 class MessageCard extends StatefulWidget {
   const MessageCard({Key? key, required this.receiverUser, required this.message}) : super(key: key);
@@ -19,9 +20,11 @@ class MessageCard extends StatefulWidget {
 class _MessageCardState extends State<MessageCard> {
 
   late AuthViewModel _authViewModel;
+  late MessageViewModel _messageViewModel;
 
   void initState(){
     _authViewModel= Provider.of<AuthViewModel>(context, listen: false);
+
 
     super.initState();
   }
