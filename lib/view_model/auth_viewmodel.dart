@@ -82,10 +82,20 @@ class AuthViewModel with ChangeNotifier{
 
   Future<void> changePassword(String password, String id) async {
     try {
-      await AuthRepository().changePassword(password, id);
       _loggedInUser?.password = password;
+      await AuthRepository().changePassword(password, _loggedInUser!);
       print("wassup");
       print(_loggedInUser?.password);
+      notifyListeners();
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateProfileName(String name) async {
+    try {
+      _loggedInUser?.name = name;
+      await AuthRepository().updateUser(_loggedInUser!);
       notifyListeners();
     } catch (err) {
       rethrow;

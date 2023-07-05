@@ -1,4 +1,5 @@
 
+import 'package:ez_text/screens/Account/edit_profile_screen.dart';
 import 'package:ez_text/screens/auth/login_screen.dart';
 import 'package:ez_text/screens/auth/register_screen.dart';
 import 'package:ez_text/screens/user_list/user_selection.dart';
@@ -16,7 +17,7 @@ import 'firebase_options.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "EzText",
+    name: "EzText", 
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
@@ -50,10 +51,11 @@ class MyApp extends StatelessWidget {
         "/register": (BuildContext context) => RegisterScreen(),
         "/userselect": (BuildContext context) => UserSelection(),
         "/login": (BuildContext context) => LoginScreen(),
-
+        "/editprofile": (BuildContext context) => EditProfile(),
       },
     )
     );
   }
 }
+
 

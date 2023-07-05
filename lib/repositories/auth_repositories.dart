@@ -116,5 +116,13 @@ class AuthRepository {
     }
   }
 
-  changePassword(password, String id) {}
+  Future<void> changePassword(password, UserModel user) async {
+      // await FirebaseService.firebaseAuth.code
+    await userRef.doc(user.id).set(user);
+  }
+
+  
+  Future<void> updateUser(UserModel user) async {
+    await userRef.doc(user.id).set(user);
+  }
 }
