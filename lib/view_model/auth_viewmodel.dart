@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
 import '../repositories/auth_repositories.dart';
+import '../repositories/message_repositories.dart';
 import 'message_viewmodel.dart';
 
 class AuthViewModel with ChangeNotifier {
@@ -12,6 +13,8 @@ class AuthViewModel with ChangeNotifier {
 
   UserModel? _loggedInUser;
   UserModel? get loggedInUser => _loggedInUser;
+
+
 
   List<UserModel> _friendsList = [];
   List<UserModel> get friendsList => _friendsList;
@@ -36,7 +39,9 @@ class AuthViewModel with ChangeNotifier {
       print(_loggedInUser?.myFriends);
 
       await getFriendsDetail(_loggedInUser!.myFriends!);
-      // await MessageViewModel().showMessage();
+
+
+
 
       notifyListeners();
     } catch (err) {
@@ -68,12 +73,17 @@ class AuthViewModel with ChangeNotifier {
       rethrow;
     }
   }
-
+  Map<String, String> _lastMessage = {};
+  Map<String, String> get  lastMessage => _lastMessage;
   Future<void> getFriendsDetail(List<String> ids) async {
     print(ids);
     _friendsList = [];
     for (int i = 0; i < ids.length; i++) {
       var a = await AuthRepository().getUserDetailWithId(ids[i]);
+      var b = await MessageRepository().showLastFromMessage( _loggedInUser!.id, ids[i]);
+      if(b!= null){
+        lastMessage[ids[i]] = b;
+      }
       if (a != null) {
         _friendsList?.add(a);
         print(_friendsList);
@@ -81,4 +91,20 @@ class AuthViewModel with ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+  Future<void> changePassword(String password, String id) async {
+    try {
+      await AuthRepository().changePassword(password, id);
+      _loggedInUser?.password = password;
+      print(_loggedInUser?.password);
+      notifyListeners();
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+
+
+
 }

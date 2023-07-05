@@ -10,6 +10,9 @@ class MessageViewModel with ChangeNotifier{
   Stream<QuerySnapshot<Map<String, dynamic>>>? get messages=> _messages;
 
 
+  String? _lastFromMessage;
+  get lastFromMessage=> _lastFromMessage;
+
 
 
 
@@ -24,11 +27,18 @@ class MessageViewModel with ChangeNotifier{
     }
   }
 
+  Map<String, String> _lastMessages = {};
+  Map<String, String> get lastMessages =>_lastMessages;
 
   Future<void> showMessages(String? fromId, String? toId)async {
     try{
 
       _messages = await MessageRepository().showMessages(fromId, toId);
+      print("messages" + _messages.toString());
+      // _messages?.forEach((element) async {
+      //   final response = await MessageRepository().showLastFromMessage(fromId, toId);
+      //   print("ersponse" +response.toString());
+      // });
       notifyListeners();
 
     }catch(e){
@@ -36,6 +46,20 @@ class MessageViewModel with ChangeNotifier{
 
     }
   }
+
+  Future<void> showLastFromMessage(String? fromId, String? toId)async {
+    try{
+      _lastFromMessage = await MessageRepository().showLastFromMessage(fromId, toId);
+      notifyListeners();
+
+    }catch(e){
+      rethrow;
+
+    }
+  }
+
+
+
 
 
 

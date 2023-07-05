@@ -69,7 +69,7 @@ class _UserSelectionState extends State<UserSelection> {
         ],
       ),
       body: SafeArea(
-
+//to make the pane scrollable
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -116,18 +116,18 @@ class _UserSelectionState extends State<UserSelection> {
                             child: ListTile(
 
                               onTap: (){
-                                _messageViewModel.showMessages( authViewModel!.loggedInUser!.id, authViewModel!.friendsList[index].id );
+                                _messageViewModel.showMessages( _authViewModel!.loggedInUser!.id,  _authViewModel!.friendsList[index].id );
 
 
-                                Navigator.pushNamed(context, '/chatscreen',arguments: (authViewModel.friendsList[index]));
+                                Navigator.pushNamed(context, '/chatscreen',arguments: ( _authViewModel.friendsList[index]));
 
                               },
                               title: Text(
-                                  (authViewModel.friendsList[index]).name.toString(),
+                                  ( _authViewModel.friendsList[index]).name.toString(),
                                 style: TextStyle(color: Colors.white),
                               ),
                                 subtitle: Text(
-                                    (authViewModel.friendsList[index]).email.toString(),
+                                    ( _authViewModel.friendsList[index]).email.toString(),
                                   style: TextStyle(color: Colors.white),
                                 ),
                             ),
@@ -155,7 +155,9 @@ class _UserSelectionState extends State<UserSelection> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                             hintText: "Enter email",
                           ),
                         ),
