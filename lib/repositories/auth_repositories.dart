@@ -113,6 +113,21 @@ class AuthRepository {
   }
 
 
+  // Future<bool> toggleFavoriteOn(String id) async {
+  //   try {
+  //
+  //     userRef.doc(id).update({
+  //       "favorite": DateTime.now().millisecondsSinceEpoch.toString(),
+  //     });
+  //     return true;
+  //   } catch (err) {
+  //     rethrow;
+  //   }
+  // }
+
+
+
+
 
   Future<void> removeFriend(String loggedIn, String friendId) async {
     try {

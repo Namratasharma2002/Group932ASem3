@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
       await _authViewModel.addUser(model!, id!, email);
     }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("A user with this Email does not exist")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("a user with this email does not exist")));
 
     }
   }

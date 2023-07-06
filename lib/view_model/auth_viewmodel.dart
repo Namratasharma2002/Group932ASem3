@@ -78,17 +78,25 @@ class AuthViewModel with ChangeNotifier {
   Future<void> getFriendsDetail(List<String> ids) async {
     print(ids);
     _friendsList = [];
-    for (int i = 0; i < ids.length; i++) {
-      var a = await AuthRepository().getUserDetailWithId(ids[i]);
-      var b = await MessageRepository().showLastFromMessage( _loggedInUser!.id, ids[i]);
-      if(b!= null){
-        lastMessage[ids[i]] = b;
-      }
-      if (a != null) {
+    for(int i=0; i< ids.length;i++){
+      var a= await AuthRepository().getUserDetailWithId(ids[i]);
+      if(a!=null){
         _friendsList?.add(a);
         print(_friendsList);
       }
+
     }
+    // for (int i = 0; i < ids.length; i++) {
+    //   var a = await AuthRepository().getUserDetailWithId(ids[i]);
+    //   var b = await MessageRepository().showLastFromMessage( _loggedInUser!.id, ids[i]);
+    //   if(b!= null){
+    //     lastMessage[ids[i]] = b;
+    //   }
+    //   if (a != null) {
+    //     _friendsList?.add(a);
+    //     print(_friendsList);
+    //   }
+    // }
     notifyListeners();
   }
 

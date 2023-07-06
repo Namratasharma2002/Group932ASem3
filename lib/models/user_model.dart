@@ -17,6 +17,7 @@ class UserModel {
   String? email;
   String? password;
   String? pushToken;
+  String? favorite;
   List<String>? myFriends;
 
   UserModel({
@@ -31,6 +32,7 @@ class UserModel {
     this.password,
     this.pushToken,
     this.myFriends,
+    this.favorite,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -46,6 +48,7 @@ class UserModel {
         email: json["email"],
         password: json["password"],
         pushToken: json["push_token"],
+        favorite: json["favorite"],
         myFriends: json["myFriends"] == null ? [] : List<String>.from(json["myFriends"]!.map((x) => x)),
       );
 
@@ -61,6 +64,7 @@ class UserModel {
         "email": email,
         "password": password,
         "push_token": pushToken,
+        "favorite": favorite,
         "myFriends": myFriends == null ? [] : List<dynamic>.from(myFriends!.map((x) => x)),
       };
 
@@ -84,6 +88,7 @@ class UserModel {
       email: json["email"],
       password: json["password"],
       pushToken: json["push_token"],
+      favorite: json["favorite"],
       myFriends: json["myFriends"] == null ? [] : List<String>.from(json["myFriends"]!.map((x) => x)),
     );
   }
