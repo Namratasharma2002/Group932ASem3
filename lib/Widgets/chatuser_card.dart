@@ -33,8 +33,9 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   bool isFavorite = false;
 
-  void toggleFavorite() {
+  void toggleFavorite(String email) {
     setState(() {
+      _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
       isFavorite = !isFavorite;
     });
   }
@@ -93,7 +94,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: toggleFavorite,
+                        onTap: ()=> toggleFavorite(_authViewModel!.friendsList[widget.indexes]!.email!),
                         child: Icon(
                           isFavorite ? Icons.star : Icons.star_border,
                           color: isFavorite ? Colors.yellow : Colors.white,

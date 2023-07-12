@@ -17,8 +17,8 @@ class UserModel {
   String? email;
   String? password;
   String? pushToken;
-  String? favorite;
   List<String>? myFriends;
+  List<String>? myFavorite;
 
   UserModel({
     this.image,
@@ -32,7 +32,7 @@ class UserModel {
     this.password,
     this.pushToken,
     this.myFriends,
-    this.favorite,
+    this.myFavorite,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -48,8 +48,8 @@ class UserModel {
         email: json["email"],
         password: json["password"],
         pushToken: json["push_token"],
-        favorite: json["favorite"],
         myFriends: json["myFriends"] == null ? [] : List<String>.from(json["myFriends"]!.map((x) => x)),
+        myFavorite: json["myFavorite"] == null ? [] : List<String>.from(json["myFavorite"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() =>
@@ -64,8 +64,8 @@ class UserModel {
         "email": email,
         "password": password,
         "push_token": pushToken,
-        "favorite": favorite,
         "myFriends": myFriends == null ? [] : List<dynamic>.from(myFriends!.map((x) => x)),
+        "myFavorite": myFavorite == null? [] : List<dynamic>.from(myFavorite!.map((x) => x)),
       };
 
 
@@ -88,8 +88,8 @@ class UserModel {
       email: json["email"],
       password: json["password"],
       pushToken: json["push_token"],
-      favorite: json["favorite"],
       myFriends: json["myFriends"] == null ? [] : List<String>.from(json["myFriends"]!.map((x) => x)),
+      myFavorite: json["myFavorite"] == null ? [] : List<String>.from(json["myFavorite"]!.map((x) => x)),
     );
   }
 }
@@ -104,6 +104,22 @@ class MyFriends {
   });
 
   factory MyFriends.fromJson(Map<String, dynamic> json) => MyFriends(
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+  };
+}
+
+class MyFavorite {
+  String? id;
+
+  MyFavorite({
+    this.id,
+  });
+
+  factory MyFavorite.fromJson(Map<String, dynamic> json) => MyFavorite(
     id: json["id"],
   );
 

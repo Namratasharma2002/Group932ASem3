@@ -83,6 +83,7 @@ class AuthRepository {
     }
   }
 
+
   Future<UserModel?> addUser(UserModel model, String id, String email) async {
     try {
       final response = await userRef.where("email", isEqualTo: email).get();
@@ -92,6 +93,22 @@ class AuthRepository {
       });
 
       model.myFriends?.add(response.docs.first.id);
+
+      return model;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel?> addFavorite(UserModel model, String id, String email) async {
+    try {
+      final response = await userRef.where("email", isEqualTo: email).get();
+
+      userRef.doc(id).update({
+        "myFavorite": FieldValue.arrayUnion([response.docs.first.id]),
+      });
+
+      model.myFavorite?.add(response.docs.first.id);
 
       return model;
     } catch (err) {
