@@ -25,16 +25,25 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   void initState() {
     _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-
-    // _messageViewModel.showLastFromMessage(_authViewModel.loggedInUser!.id,widget.user.id);
-
     super.initState();
   }
 
-  bool isFavorite = false;
+  bool isFavorite= false;
 
   void toggleFavorite(String email) {
     setState(() {
+      // for(int i=0; i< _authViewModel.favoriteList.length;i++){
+      //   if(_authViewModel.favoriteList[i].email==email){
+      //     print(1);
+      //     _authViewModel.removeFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      //
+      //   }
+      //
+      //   else{
+      //     print(2);
+      //     _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      //   }
+      // }
       _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
       isFavorite = !isFavorite;
     });

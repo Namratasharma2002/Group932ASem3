@@ -79,6 +79,17 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
+  Future<void> removeFavorite(UserModel model, String id, String email) async {
+    try {
+      _loggedInUser = await AuthRepository().removeFavorite(model, id, email);
+
+      await getFavoriteDetail(loggedInUser!.myFavorite!);
+      notifyListeners();
+    } catch (err) {
+      rethrow;
+    }
+  }
+
 
   Future<void> getFavoriteDetail(List<String> ids) async {
     print(ids);

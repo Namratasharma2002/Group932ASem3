@@ -116,6 +116,22 @@ class AuthRepository {
     }
   }
 
+  Future<UserModel?> removeFavorite(UserModel model, String id, String email) async {
+    try {
+      final response = await userRef.where("email", isEqualTo: email).get();
+
+      userRef.doc(id).update({
+        "myFavorite": FieldValue.arrayRemove([response.docs.first.id]),
+      });
+
+      model.myFavorite?.remove(response.docs.first.id);
+
+      return model;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
 
   Future<bool> changePassword(String password, String id) async {
     try {
