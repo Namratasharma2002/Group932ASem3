@@ -32,20 +32,26 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   void toggleFavorite(String email) {
     setState(() {
-      // for(int i=0; i< _authViewModel.favoriteList.length;i++){
-      //   if(_authViewModel.favoriteList[i].email==email){
-      //     print(1);
-      //     _authViewModel.removeFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
-      //
-      //   }
-      //
-      //   else{
-      //     print(2);
-      //     _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
-      //   }
-      // }
-      _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
-      isFavorite = !isFavorite;
+      bool foundFav= false;
+      for(int i=0; i< _authViewModel.favoriteList.length;i++){
+        print(_authViewModel.favoriteList[i].email);
+        if(_authViewModel.favoriteList[i].email==email){
+          print(1);
+          _authViewModel.removeFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+          foundFav=true;
+          break;
+        }
+      }
+      if(!foundFav){
+        print(2);
+        _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      }
+
+      // print(2);
+      // _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+
+      // _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      // isFavorite = !isFavorite;
     });
   }
 
@@ -93,7 +99,8 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   ),
                   subtitle: Text(
                     // _messageViewModel.lastFromMessage,
-                    _authViewModel.lastMessage[_authViewModel.friendsList[widget.indexes].id].toString(),
+                    // _authViewModel.lastMessage[_authViewModel.friendsList[widget.indexes].id].toString(),
+                    "",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -111,7 +118,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                       ),
                       SizedBox(height: 4.0),
                       Text(
-                        "12:00 PM",
+                        "",
                         style: TextStyle(
                           color: Colors.white,
                         ),

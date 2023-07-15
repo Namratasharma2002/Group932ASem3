@@ -125,6 +125,7 @@ class AuthRepository {
       });
 
       model.myFavorite?.remove(response.docs.first.id);
+      print(model.myFavorite);
 
       return model;
     } catch (err) {

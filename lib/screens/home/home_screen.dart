@@ -153,6 +153,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         children: [
           Column(
             children: [
+              SizedBox(
+                height: 20,
+              ),
+
+              Text("Favorites",
+                style: TextStyle(
+                  color: Colors.white
+                ),
+
+              ),
+
               Container(
                 color: Color(0xff4e91fb),
                 height: MediaQuery.of(context).size.height - 500,
@@ -167,6 +178,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
               ),
+
+              SizedBox(
+                height: 20,
+              ),
+
+              Text("Conversation",
+                style: TextStyle(
+                    color: Colors.white
+                ),
+
+              ),
+
               Container(
                 color: Color(0xff4e91fb),
                 height: MediaQuery.of(context).size.height - 500,
@@ -267,6 +290,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           SingleChildScrollView(
             child: Column(
               children: [
+
                 Container(
                   color: Color(0xff4e91fb),
                   height: MediaQuery.of(context).size.height - 200,

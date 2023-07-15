@@ -83,8 +83,10 @@ class AuthViewModel with ChangeNotifier {
     try {
       _loggedInUser = await AuthRepository().removeFavorite(model, id, email);
 
-      await getFavoriteDetail(loggedInUser!.myFavorite!);
+      await getFavoriteDetail(_loggedInUser!.myFavorite!);
       notifyListeners();
+
+
     } catch (err) {
       rethrow;
     }
