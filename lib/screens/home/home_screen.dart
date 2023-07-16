@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     itemCount: _authViewModel.friendsList.length,
                     itemBuilder: (context, index) {
                       return ChatUserCard(user: _authViewModel.friendsList[index], indexes: index );
-
+                      
                       // return Slidable(
                       //   endActionPane: ActionPane(
                       //     motion: const StretchMotion(),
