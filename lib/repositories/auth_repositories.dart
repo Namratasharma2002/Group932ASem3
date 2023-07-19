@@ -83,6 +83,7 @@ class AuthRepository {
     }
   }
 
+
   Future<UserModel?> addUser(UserModel model, String id, String email) async {
     try {
       final response = await userRef.where("email", isEqualTo: email).get();
@@ -92,6 +93,39 @@ class AuthRepository {
       });
 
       model.myFriends?.add(response.docs.first.id);
+
+      return model;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel?> addFavorite(UserModel model, String id, String email) async {
+    try {
+      final response = await userRef.where("email", isEqualTo: email).get();
+
+      userRef.doc(id).update({
+        "myFavorite": FieldValue.arrayUnion([response.docs.first.id]),
+      });
+
+      model.myFavorite?.add(response.docs.first.id);
+
+      return model;
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Future<UserModel?> removeFavorite(UserModel model, String id, String email) async {
+    try {
+      final response = await userRef.where("email", isEqualTo: email).get();
+
+      userRef.doc(id).update({
+        "myFavorite": FieldValue.arrayRemove([response.docs.first.id]),
+      });
+
+      model.myFavorite?.remove(response.docs.first.id);
+      print(model.myFavorite);
 
       return model;
     } catch (err) {
@@ -111,6 +145,21 @@ class AuthRepository {
       rethrow;
     }
   }
+
+
+  // Future<bool> toggleFavoriteOn(String id) async {
+  //   try {
+  //
+  //     userRef.doc(id).update({
+  //       "favorite": DateTime.now().millisecondsSinceEpoch.toString(),
+  //     });
+  //     return true;
+  //   } catch (err) {
+  //     rethrow;
+  //   }
+  // }
+
+
 
 
 

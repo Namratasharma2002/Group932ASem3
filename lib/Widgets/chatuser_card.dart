@@ -25,17 +25,33 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   void initState() {
     _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-
-    // _messageViewModel.showLastFromMessage(_authViewModel.loggedInUser!.id,widget.user.id);
-
     super.initState();
   }
 
-  bool isFavorite = false;
+  bool isFavorite= false;
 
-  void toggleFavorite() {
+  void toggleFavorite(String email) {
     setState(() {
-      isFavorite = !isFavorite;
+      bool foundFav= false;
+      for(int i=0; i< _authViewModel.favoriteList.length;i++){
+        print(_authViewModel.favoriteList[i].email);
+        if(_authViewModel.favoriteList[i].email==email){
+          print(1);
+          _authViewModel.removeFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+          foundFav=true;
+          break;
+        }
+      }
+      if(!foundFav){
+        print(2);
+        _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      }
+
+      // print(2);
+      // _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+
+      // _authViewModel.addFavorite(_authViewModel!.loggedInUser!, _authViewModel!.loggedInUser!.id!, email);
+      // isFavorite = !isFavorite;
     });
   }
 
@@ -83,7 +99,8 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   ),
                   subtitle: Text(
                     // _messageViewModel.lastFromMessage,
-                    _authViewModel.lastMessage[_authViewModel.friendsList[widget.indexes].id].toString(),
+                    // _authViewModel.lastMessage[_authViewModel.friendsList[widget.indexes].id].toString(),
+                    "",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -93,7 +110,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       GestureDetector(
-                        onTap: toggleFavorite,
+                        onTap: ()=> toggleFavorite(_authViewModel!.friendsList[widget.indexes]!.email!),
                         child: Icon(
                           isFavorite ? Icons.star : Icons.star_border,
                           color: isFavorite ? Colors.yellow : Colors.white,
@@ -101,7 +118,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                       ),
                       SizedBox(height: 4.0),
                       Text(
-                        "12:00 PM",
+                        "",
                         style: TextStyle(
                           color: Colors.white,
                         ),
