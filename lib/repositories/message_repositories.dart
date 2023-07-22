@@ -1,3 +1,7 @@
+
+
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_text/models/message_model.dart';
 
@@ -57,12 +61,19 @@ class MessageRepository{
     try{
       final response1 = await messageRef.where("fromID", isEqualTo: fromId).where("toID", isEqualTo: toId).get();
       final response2 = await messageRef.where("toID", isEqualTo: fromId).where("fromID", isEqualTo: toId).get();
-      if(response1!=null){
-        messageRef.doc(response1.docs.first.id).delete();
-      }
-      if(response2!=null){
-        messageRef.doc(response2.docs.first.id).delete();
-      }
+      print("wassup");
+      print(response1);
+      // if(response1!=null){
+      //   try{messageRef.doc(response1.docs.first.id).delete();} catch(err){
+      //
+      //   }
+      // }
+      // if(response2!=null){
+      //   messageRef.doc(response2.docs.first.id).delete();
+      // }
+
+      try{messageRef.doc(response1.docs.first.id).delete();} catch(err){}
+      try{messageRef.doc(response2.docs.first.id).delete();} catch(err){}
 
     }catch(err){
       rethrow;
