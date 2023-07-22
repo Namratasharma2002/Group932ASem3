@@ -11,7 +11,7 @@ class MessageViewModel with ChangeNotifier{
 
 
   String? _lastFromMessage;
-  get lastFromMessage=> _lastFromMessage;
+  get lastFromMessage=> _lastFromMessage;s
 
 
 
