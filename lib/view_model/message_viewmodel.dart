@@ -11,9 +11,7 @@ class MessageViewModel with ChangeNotifier{
 
 
   String? _lastFromMessage;
-  get lastFromMessage=> _lastFromMessage;s
-
-
+  get lastFromMessage=> _lastFromMessage;
 
 
 
@@ -44,6 +42,19 @@ class MessageViewModel with ChangeNotifier{
     }catch(e){
       rethrow;
 
+    }
+  }
+
+
+  Future<void> deleteMessage(String? fromId, String? toId) async{
+    try{
+      print("wassup1");
+      await MessageRepository().deleteMessage(fromId, toId);
+      _messages = await MessageRepository().showMessages(fromId, toId);
+      notifyListeners();
+
+    }catch(err){
+      rethrow;
     }
   }
 

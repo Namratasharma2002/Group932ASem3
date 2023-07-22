@@ -25,6 +25,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   void initState() {
     _authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+    _messageViewModel = Provider.of<MessageViewModel>(context, listen: false);
     super.initState();
   }
 
@@ -34,6 +35,10 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   Future<void> removeFriend(String friendId) async {
     await _authViewModel.removeFriend(friendId);
+  }
+
+  Future<void> deleteMessage(String fromId, String toId) async {
+    await _messageViewModel.deleteMessage(fromId, toId);
   }
 
 
@@ -81,9 +86,11 @@ class _ChatUserCardState extends State<ChatUserCard> {
             builder: (context, _authViewModel, child)=> TextButton(
               onPressed: () async{
                 final friend = _authViewModel.friendsList[widget.indexes];
+                deleteMessage(_authViewModel!.loggedInUser!.id!, friend.id.toString());
                 if ( friend!= null) {
                   removeFriend(friend.id.toString()); // Use 'id' instead of friend[id]
                 }
+
 
                 Navigator.pop(context);
 

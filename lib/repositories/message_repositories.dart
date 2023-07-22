@@ -53,9 +53,28 @@ class MessageRepository{
 
   }
 
+  Future<void> deleteMessage(String? fromId, String? toId) async {
+    try{
+      final response1 = await messageRef.where("fromID", isEqualTo: fromId).where("toID", isEqualTo: toId).get();
+      final response2 = await messageRef.where("toID", isEqualTo: fromId).where("fromID", isEqualTo: toId).get();
+      if(response1!=null){
+        messageRef.doc(response1.docs.first.id).delete();
+      }
+      if(response2!=null){
+        messageRef.doc(response2.docs.first.id).delete();
+      }
+
+    }catch(err){
+      rethrow;
+    }
+
+
+  }
+
+
+
   Future<String?> showLastFromMessage(String? fromId, String? toId) async{
     final response = await  messageRef.where("fromID", isEqualTo: fromId).where("toID", isEqualTo: toId).get();
-    // final response = await  messageRef.where("toID", whereIn:[toId, fromId]).get();
     print("MESSAGE SENT :: "+response.toString());
     var message= response.docs.last.data();
     print("MESSAGE SENT :: "+message.msg.toString());
