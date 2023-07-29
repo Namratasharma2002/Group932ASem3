@@ -44,6 +44,8 @@ class AuthRepository {
     try {
       UserCredential uc = await FirebaseService.firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
+      print("wassup234");
+      print(uc);
       return uc;
     } catch (err) {
       rethrow;
