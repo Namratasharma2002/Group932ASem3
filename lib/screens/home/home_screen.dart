@@ -258,39 +258,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ],
           ),
 
-
-          // StreamBuilder<QuerySnapshot>(
-          //   stream: FirebaseService.db.collection("users").snapshots(),
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return const Center(child: CircularProgressIndicator());
-          //     }
-          //
-          //     final data = snapshot.data?.docs;
-          //     list = data?.map((e) => UserModel.fromJson(e.data()! as Map<String, dynamic>)).toList() ?? [];
-          //
-          //     if (list.isNotEmpty) {
-          //       return ListView.builder(
-          //         itemCount: list.length,
-          //         physics: BouncingScrollPhysics(),
-          //         itemBuilder: (context, index) {
-          //           return ChatUserCard(user: list[index]);
-          //         },
-          //       );
-          //     }else{
-          //       return Center(
-          //           child: Text("No Users Found",
-          //               style:TextStyle(fontSize: 40))
-          //       );
-          //     }
-          //
-          //     return Container(); // Return an empty container if the list is empty
-          //   },
-          // ),
           SingleChildScrollView(
             child: Column(
               children: [
-
+//test
                 Container(
                   color: Color(0xff4e91fb),
                   height: MediaQuery.of(context).size.height - 200,

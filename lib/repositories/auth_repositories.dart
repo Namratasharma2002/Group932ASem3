@@ -44,6 +44,8 @@ class AuthRepository {
     try {
       UserCredential uc = await FirebaseService.firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
+      print("wassup234");
+      print(uc);
       return uc;
     } catch (err) {
       rethrow;
@@ -121,10 +123,10 @@ class AuthRepository {
       final response = await userRef.where("email", isEqualTo: email).get();
 
       userRef.doc(id).update({
-        "myFavorite": FieldValue.arrayRemove([response.docs.first.id]),
+        "myFriends": FieldValue.arrayRemove([response.docs.first.id]),
       });
 
-      model.myFavorite?.remove(response.docs.first.id);
+      model.myFriends?.remove(response.docs.first.id);
       print(model.myFavorite);
 
       return model;
@@ -132,6 +134,23 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  // Future<UserModel?> removeFriend(UserModel model, String id, String email) async {
+  //   try {
+  //     final response = await userRef.where("email", isEqualTo: email).get();
+  //
+  //     userRef.doc(id).update({
+  //       "myFavorite": FieldValue.arrayRemove([response.docs.first.id]),
+  //     });
+  //
+  //     model.myFavorite?.remove(response.docs.first.id);
+  //     print(model.myFavorite);
+  //
+  //     return model;
+  //   } catch (err) {
+  //     rethrow;
+  //   }
+  // }
 
 
   Future<bool> changePassword(String password, String id) async {
