@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
 
         ChangeNotifierProvider (create: (_) => MessageViewModel()),
 
+
       ],
 
     child: MaterialApp(
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
         "/login": (BuildContext context) => LoginScreen(),
         "/chatscreen": (BuildContext context) => ChatScreen(),
         "/editprofile": (BuildContext context) => EditProfile(),
-        "/Hidechat": (BuildContext context) => Hidechat(),
+        // "/Hidechat": (BuildContext context) => Hidechat(),
 
 
 

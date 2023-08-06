@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
           {"body": _messageController.text, "title": fromId},
         );
       }
-git
+
       _messageController.clear();
     } catch (e) {
       print(e.toString());
